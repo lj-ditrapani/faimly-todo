@@ -1,3 +1,8 @@
+- define & test Item
+- json body
+- param (id): does it throw exception?
+    - missing
+    - wrong type?
 - define & test Todo class
 - dockerize (multi-stage build)
 - verticle unit tests

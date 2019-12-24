@@ -10,9 +10,10 @@ import org.apache.logging.log4j.Logger
 class AppTest : FreeSpec({
     "can deploy the verticle" {
         val logger = mock<Logger>()
+        val todoList = mock<ITodoList>()
         val vertx = Vertx.vertx()
         runBlocking {
-            vertx.deployVerticleAwait(Verticle(logger))
+            vertx.deployVerticleAwait(Verticle(todoList, logger))
         }
     }
 })
