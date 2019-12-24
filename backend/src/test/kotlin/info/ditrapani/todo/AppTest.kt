@@ -24,11 +24,14 @@ class AppTest : FreeSpec({
         val client = WebClient.create(vertx)
 
         fun testServer(f: suspend Fixture.() -> Unit) {
-            runBlocking {
-                vertx.deployVerticleAwait(Verticle(todoList, logger))
-                f()
+            try {
+                runBlocking {
+                    vertx.deployVerticleAwait(Verticle(todoList, logger))
+                    f()
+                }
+            } finally {
+                vertx.close()
             }
-            vertx.close()
         }
     }
 
