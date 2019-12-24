@@ -68,4 +68,48 @@ class AppTest : FreeSpec({
             }
         }
     }
+
+    "/done/:itemId calls ITodoList.completeItem with itemId and returns the result" {
+        with(Fixture()) {
+            testServer {
+                val response = client
+                    .post(PORT, "localhost", "/done/3")
+                    .sendAwait()
+                assertEquals(200, response.statusCode())
+                assertEquals("item complete", response.bodyAsString())
+                verify(todoList).completeItem("3")
+            }
+        }
+    }
+
+    "/clean calls ITodoList.clean" {
+        with(Fixture()) {
+            testServer {
+                val response = client
+                    .post(PORT, "localhost", "/clean")
+                    .sendAwait()
+                assertEquals(200, response.statusCode())
+                assertEquals("list cleaned", response.bodyAsString())
+                verify(todoList).cleanList()
+            }
+        }
+    }
+
+    "/prioritize ITodoList.prioritize() with payload and returns a 200" {
+        with(Fixture()) {
+            val jsonObj = json {
+                obj(
+                    "priority" to listOf(4, 2, 1, 3)
+                )
+            }
+            testServer {
+                val response = client
+                    .post(PORT, "localhost", "/prioritize")
+                    .sendJsonObjectAwait(jsonObj)
+                assertEquals(200, response.statusCode())
+                assertEquals("prioritized", response.bodyAsString())
+                verify(todoList).prioritize(jsonObj)
+            }
+        }
+    }
 })

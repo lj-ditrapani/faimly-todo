@@ -27,18 +27,19 @@ class Verticle(val todoList: ITodoList, val logger: Logger) : CoroutineVerticle(
         }
 
         router.post("/done/:itemId").handler { routingContext ->
-            todoList.completeItem(7)
-            routingContext.response().end("doneitem")
+            val itemId = routingContext.request().getParam("itemId")
+            todoList.completeItem(itemId)
+            routingContext.response().end("item complete")
         }
 
         router.post("/clean").handler { routingContext ->
             todoList.cleanList()
-            routingContext.response().end("clean")
+            routingContext.response().end("list cleaned")
         }
 
         router.post("/prioritize").handler { routingContext ->
             todoList.prioritize(routingContext.getBodyAsJson())
-            routingContext.response().end("clean")
+            routingContext.response().end("prioritized")
         }
 
         val server = vertx.createHttpServer().requestHandler(router)

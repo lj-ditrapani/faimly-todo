@@ -1,4 +1,5 @@
 - define & test Item
+- http tests: fail cases
 - json body
 - param (id): does it throw exception?
     - missing

@@ -9,7 +9,7 @@ object Success : Result()
 interface ITodoList {
     fun list(): JsonObject
     fun addItem(body: JsonObject): Result
-    fun completeItem(id: Int?): Result
+    fun completeItem(id: String?): Result
     fun cleanList()
     fun prioritize(body: JsonObject): Result
 }
@@ -23,7 +23,7 @@ class TodoList : ITodoList {
         return Success
     }
 
-    override fun completeItem(id: Int?): Result {
+    override fun completeItem(id: String?): Result {
         return Success
     }
 
