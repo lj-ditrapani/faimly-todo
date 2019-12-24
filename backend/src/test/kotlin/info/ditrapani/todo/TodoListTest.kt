@@ -185,12 +185,54 @@ class TodoListTest : FreeSpec({
 
     "prioritize" - {
         "when the priority list is valid" - {
-            "!re-sorts the list according to the new priority" {
+            "re-sorts the list according to the new priority" {
+                val list = TodoList()
+                val item1 = Item("Mark", "Mend nets", Todo)
+                val item2 = Item("Luke", "Eat lunch", Todo)
+                val item3 = Item("John", "Wash car", Todo)
+                list.addItem(item1.toJson())
+                list.addItem(item2.toJson())
+                list.addItem(item3.toJson())
+                val jsonObj = json {
+                    obj(
+                        "priority" to JsonArray(listOf(2, 0, 1))
+                    )
+                }
+
+                val result = list.prioritize(jsonObj)
+
+                assertEquals(Success, result)
+                val actual = list.list()
+                val sortedItemList = listOf(
+                    item3.toJson(),
+                    item1.toJson(),
+                    item2.toJson()
+                )
+                val expected = json {
+                    obj("list" to JsonArray(sortedItemList))
+                }
+                assertEquals(expected, actual)
             }
         }
 
         "when the priority list is invalid" - {
-            "!returns a fail" {
+            "returns a fail" {
+                val list = TodoList()
+                val item1 = Item("Mark", "Mend nets", Todo)
+                val item2 = Item("Luke", "Eat lunch", Todo)
+                val item3 = Item("John", "Wash car", Todo)
+                list.addItem(item1.toJson())
+                list.addItem(item2.toJson())
+                list.addItem(item3.toJson())
+                val jsonObj = json {
+                    obj(
+                        "priority" to JsonArray(listOf(3, 0, 1, 2))
+                    )
+                }
+
+                val result = list.prioritize(jsonObj)
+
+                assertEquals(Fail("Priorty list is invalid"), result)
             }
         }
     }

@@ -13,7 +13,7 @@ interface ITodoList {
     fun list(): JsonObject
     fun addItem(body: JsonObject): Unit
     fun completeItem(body: JsonObject): Result
-    fun cleanList()
+    fun cleanList(): Unit
     fun prioritize(body: JsonObject): Result
 }
 
@@ -50,6 +50,23 @@ class TodoList : ITodoList {
     }
 
     override fun prioritize(body: JsonObject): Result {
-        return Success
+        val jArray = body.getJsonArray("priority")
+        val priority = ArrayList<Int>(jArray.size())
+        for (i in 0.until(jArray.size())) {
+            priority += jArray.getInteger(i)
+        }
+        if (priority.sorted() == 0.until(list.size).toList()) {
+            val newList = ArrayList<Item>(list.size)
+            for (i in priority) {
+                newList.add(list[i])
+            }
+            list.clear()
+            newList.forEach {
+                list += it
+            }
+            return Success
+        } else {
+            return Fail("Priorty list is invalid")
+        }
     }
 }
