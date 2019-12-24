@@ -9,25 +9,42 @@ import io.vertx.kotlin.core.deployVerticleAwait
 import io.vertx.kotlin.core.json.json
 import io.vertx.kotlin.core.json.obj
 import io.vertx.kotlin.ext.web.client.sendAwait
+import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.apache.logging.log4j.Logger
+// sendJsonObjectAwait
 
 class AppTest : FreeSpec({
-    "can deploy the verticle" {
+    class Fixture {
         val logger = mock<Logger>()
         val todoList = mock<ITodoList>()
         val vertx = Vertx.vertx()
-        val jsonObj = json {
-            obj("list" to listOf<String>())
+        val client = WebClient.create(vertx)
+
+        fun testServer(f: suspend Fixture.() -> Unit) {
+            runBlocking {
+                vertx.deployVerticleAwait(Verticle(todoList, logger))
+                f()
+            }
+            vertx.close()
         }
-        whenever(todoList.list()).thenReturn(jsonObj)
-        runBlocking {
-            vertx.deployVerticleAwait(Verticle(todoList, logger))
-            val client = WebClient.create(vertx)
-            val response = client.get(PORT, "localhost", "/list").sendAwait()
-            println(response)
-            println(response.statusCode())
-            println(response.bodyAsJsonObject())
+    }
+
+    "/list calls ITodoList.list() and returns the resulting json" {
+        with(Fixture()) {
+            val jsonObj = json {
+                obj("list" to listOf<String>())
+            }
+            whenever(todoList.list()).thenReturn(jsonObj)
+            testServer {
+                val response = client.get(PORT, "localhost", "/list").sendAwait()
+                assertEquals(
+                    "application/json; charset=utf-8",
+                    response.getHeader("content-type")
+                )
+                assertEquals(200, response.statusCode())
+                assertEquals(jsonObj, response.bodyAsJsonObject())
+            }
         }
     }
 })
