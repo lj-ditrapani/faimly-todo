@@ -11,7 +11,7 @@ object Success : Result()
 
 interface ITodoList {
     fun list(): JsonObject
-    fun addItem(body: JsonObject): Result
+    fun addItem(body: JsonObject): Unit
     fun completeItem(id: String?): Result
     fun cleanList()
     fun prioritize(body: JsonObject): Result
@@ -24,10 +24,9 @@ class TodoList : ITodoList {
         obj("list" to JsonArray(list.map { it.toJson() }))
     }
 
-    override fun addItem(body: JsonObject): Result {
+    override fun addItem(body: JsonObject) {
         val item = Item(body.getString("author"), body.getString("description"), Todo)
         list += item
-        return Success
     }
 
     override fun completeItem(id: String?): Result {
