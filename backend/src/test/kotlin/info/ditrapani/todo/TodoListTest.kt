@@ -19,8 +19,6 @@ class TodoListTest : FreeSpec({
 
             "for an list with some items" {
                 val list = TodoList()
-                val item1 = Item("John", "Wash car", Todo)
-                val item2 = Item("Luke", "Eat lunch", Todo)
                 val item1Json = json {
                     obj(
                         "author" to "John",
@@ -35,7 +33,11 @@ class TodoListTest : FreeSpec({
                 }
                 list.addItem(item1Json)
                 list.addItem(item2Json)
+
                 val actual = list.list()
+
+                val item1 = Item("John", "Wash car", Todo)
+                val item2 = Item("Luke", "Eat lunch", Todo)
                 val expected = json {
                     obj("list" to JsonArray(listOf(item1.toJson(), item2.toJson())))
                 }
@@ -47,8 +49,6 @@ class TodoListTest : FreeSpec({
     "addItem" - {
         "adds an item to the list" {
             val list = TodoList()
-            val item1 = Item("John", "Wash car", Todo)
-            val item2 = Item("Luke", "Eat lunch", Todo)
             val item1Json = json {
                 obj(
                     "author" to "John",
@@ -61,9 +61,13 @@ class TodoListTest : FreeSpec({
                     "description" to "Eat lunch"
                 )
             }
+
             list.addItem(item1Json)
             list.addItem(item2Json)
+
             val actual = list.list()
+            val item1 = Item("John", "Wash car", Todo)
+            val item2 = Item("Luke", "Eat lunch", Todo)
             val expected = json {
                 obj("list" to JsonArray(listOf(item1.toJson(), item2.toJson())))
             }
@@ -75,8 +79,6 @@ class TodoListTest : FreeSpec({
         "when the item exists" - {
             "marks the item as done" {
                 val list = TodoList()
-                val item1 = Item("John", "Wash car", Todo)
-                val item2 = Item("Luke", "Eat lunch", Done("James"))
                 val item1Json = json {
                     obj(
                         "author" to "John",
@@ -97,9 +99,13 @@ class TodoListTest : FreeSpec({
                         "worker" to "James"
                     )
                 }
+
                 val result = list.completeItem(jsonObj)
+
                 assertEquals(Success, result)
                 val actual = list.list()
+                val item1 = Item("John", "Wash car", Todo)
+                val item2 = Item("Luke", "Eat lunch", Done("James"))
                 val expected = json {
                     obj("list" to JsonArray(listOf(item1.toJson(), item2.toJson())))
                 }
@@ -110,8 +116,6 @@ class TodoListTest : FreeSpec({
         "when the item does not exist" - {
             "returns a Fail" {
                 val list = TodoList()
-                val item1 = Item("John", "Wash car", Todo)
-                val item2 = Item("Luke", "Eat lunch", Todo)
                 val item1Json = json {
                     obj(
                         "author" to "John",
@@ -132,9 +136,13 @@ class TodoListTest : FreeSpec({
                         "worker" to "James"
                     )
                 }
+
                 val result = list.completeItem(jsonObj)
+
                 assertEquals(Fail("itemIndex out of bounds"), result)
                 val actual = list.list()
+                val item1 = Item("John", "Wash car", Todo)
+                val item2 = Item("Luke", "Eat lunch", Todo)
                 val expected = json {
                     obj("list" to JsonArray(listOf(item1.toJson(), item2.toJson())))
                 }
