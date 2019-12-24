@@ -1,5 +1,6 @@
 package info.ditrapani.todo
 
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
@@ -77,6 +78,7 @@ class AppTest : FreeSpec({
                     "worker" to "Luke"
                 )
             }
+            whenever(todoList.completeItem(any())).thenReturn(Success)
             testServer {
                 val response = client
                     .post(PORT, "localhost", "/complete")
@@ -108,6 +110,7 @@ class AppTest : FreeSpec({
                     "priority" to listOf(4, 2, 1, 3)
                 )
             }
+            whenever(todoList.prioritize(any())).thenReturn(Success)
             testServer {
                 val response = client
                     .post(PORT, "localhost", "/prioritize")
