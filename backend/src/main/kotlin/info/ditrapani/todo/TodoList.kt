@@ -42,6 +42,11 @@ class TodoList : ITodoList {
     }
 
     override fun cleanList() {
+        val newList = list.filter { it.status is Todo }
+        list.clear()
+        newList.forEach {
+            list += it
+        }
     }
 
     override fun prioritize(body: JsonObject): Result {

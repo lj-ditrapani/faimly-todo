@@ -153,6 +153,33 @@ class TodoListTest : FreeSpec({
 
     "cleanList" - {
         "removes completed items from the list" {
+            val list = TodoList()
+            val item1 = Item("Mark", "Mend nets", Done("James"))
+            val item2 = Item("Luke", "Eat lunch", Todo)
+            val item3 = Item("John", "Wash car", Done("Peter"))
+            list.addItem(item1.toJson())
+            list.addItem(item2.toJson())
+            list.addItem(item3.toJson())
+            val jsonObj1 = json {
+                obj(
+                    "itemIndex" to 0,
+                    "worker" to "James"
+                )
+            }
+            val jsonObj2 = json {
+                obj(
+                    "itemIndex" to 2,
+                    "worker" to "Peter"
+                )
+            }
+            list.completeItem(jsonObj1)
+            list.completeItem(jsonObj2)
+            list.cleanList()
+            val actual = list.list()
+            val expected = json {
+                obj("list" to JsonArray(listOf(item2.toJson())))
+            }
+            assertEquals(expected, actual)
         }
     }
 
