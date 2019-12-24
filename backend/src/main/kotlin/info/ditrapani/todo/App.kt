@@ -21,14 +21,14 @@ class Verticle(val todoList: ITodoList, val logger: Logger) : CoroutineVerticle(
                 .end(todoList.list().encode())
         }
 
-        router.post("/additem").handler { routingContext ->
+        router.post("/add").handler { routingContext ->
             todoList.addItem(routingContext.getBodyAsJson())
             routingContext.response().end("item added")
         }
 
-        router.post("/done/:itemId").handler { routingContext ->
+        router.post("/complete").handler { routingContext ->
             val itemId = routingContext.request().getParam("itemId")
-            todoList.completeItem(itemId)
+            todoList.completeItem(routingContext.getBodyAsJson())
             routingContext.response().end("item complete")
         }
 

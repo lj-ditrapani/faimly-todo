@@ -50,7 +50,7 @@ class AppTest : FreeSpec({
         }
     }
 
-    "/additem calls ITodoList.addItem() with payload and returns a 200" {
+    "/add calls ITodoList.addItem() with payload and returns a 200" {
         with(Fixture()) {
             val jsonObj = json {
                 obj(
@@ -60,7 +60,7 @@ class AppTest : FreeSpec({
             }
             testServer {
                 val response = client
-                    .post(PORT, "localhost", "/additem")
+                    .post(PORT, "localhost", "/add")
                     .sendJsonObjectAwait(jsonObj)
                 assertEquals(200, response.statusCode())
                 assertEquals("item added", response.bodyAsString())
@@ -69,15 +69,21 @@ class AppTest : FreeSpec({
         }
     }
 
-    "/done/:itemId calls ITodoList.completeItem with itemId and returns the result" {
+    "/complete calls ITodoList.completeItem with payload and returns the result" {
         with(Fixture()) {
+            val jsonObj = json {
+                obj(
+                    "itemIndex" to 3,
+                    "worker" to "Luke"
+                )
+            }
             testServer {
                 val response = client
-                    .post(PORT, "localhost", "/done/3")
-                    .sendAwait()
+                    .post(PORT, "localhost", "/complete")
+                    .sendJsonObjectAwait(jsonObj)
                 assertEquals(200, response.statusCode())
                 assertEquals("item complete", response.bodyAsString())
-                verify(todoList).completeItem("3")
+                verify(todoList).completeItem(jsonObj)
             }
         }
     }

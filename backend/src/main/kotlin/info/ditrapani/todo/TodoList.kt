@@ -12,7 +12,7 @@ object Success : Result()
 interface ITodoList {
     fun list(): JsonObject
     fun addItem(body: JsonObject): Unit
-    fun completeItem(id: String?): Result
+    fun completeItem(body: JsonObject): Result
     fun cleanList()
     fun prioritize(body: JsonObject): Result
 }
@@ -29,8 +29,16 @@ class TodoList : ITodoList {
         list += item
     }
 
-    override fun completeItem(id: String?): Result {
-        return Success
+    override fun completeItem(body: JsonObject): Result {
+        val index = body.getInteger("itemIndex")
+        val worker = body.getString("worker")
+        val maybeItem = list.getOrNull(index)
+        if (maybeItem == null) {
+            return Fail("itemIndex out of bounds")
+        } else {
+            list[index] = maybeItem.copy(status = Done(worker))
+            return Success
+        }
     }
 
     override fun cleanList() {
