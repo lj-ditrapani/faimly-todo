@@ -70,22 +70,45 @@ class AppTest : FreeSpec({
         }
     }
 
-    "/complete calls ITodoList.completeItem with payload and returns the result" {
-        with(Fixture()) {
-            val jsonObj = json {
-                obj(
-                    "itemIndex" to 3,
-                    "worker" to "Luke"
-                )
+    "/complete calls ITodoList.completeItem with payload and returns the result" - {
+        "when the TodoList returs a Success, it returns a 200" {
+            with(Fixture()) {
+                val jsonObj = json {
+                    obj(
+                        "itemIndex" to 3,
+                        "worker" to "Luke"
+                    )
+                }
+                whenever(todoList.completeItem(any())).thenReturn(Success)
+                testServer {
+                    val response = client
+                        .post(PORT, "localhost", "/complete")
+                        .sendJsonObjectAwait(jsonObj)
+                    assertEquals(200, response.statusCode())
+                    assertEquals("item complete", response.bodyAsString())
+                    verify(todoList).completeItem(jsonObj)
+                }
             }
-            whenever(todoList.completeItem(any())).thenReturn(Success)
-            testServer {
-                val response = client
-                    .post(PORT, "localhost", "/complete")
-                    .sendJsonObjectAwait(jsonObj)
-                assertEquals(200, response.statusCode())
-                assertEquals("item complete", response.bodyAsString())
-                verify(todoList).completeItem(jsonObj)
+        }
+
+        "when the TodoList returs a Fail, it returns a 400" {
+            with(Fixture()) {
+                val jsonObj = json {
+                    obj(
+                        "itemIndex" to 3,
+                        "worker" to "Luke"
+                    )
+                }
+                whenever(todoList.completeItem(any()))
+                    .thenReturn(Fail("itemIndex out of bounds"))
+                testServer {
+                    val response = client
+                        .post(PORT, "localhost", "/complete")
+                        .sendJsonObjectAwait(jsonObj)
+                    assertEquals(400, response.statusCode())
+                    assertEquals("itemIndex out of bounds", response.bodyAsString())
+                    verify(todoList).completeItem(jsonObj)
+                }
             }
         }
     }
@@ -103,21 +126,43 @@ class AppTest : FreeSpec({
         }
     }
 
-    "/prioritize ITodoList.prioritize() with payload and returns a 200" {
-        with(Fixture()) {
-            val jsonObj = json {
-                obj(
-                    "priority" to listOf(4, 2, 1, 3)
-                )
+    "/prioritize ITodoList.prioritize() with payload and returns the result" - {
+        "when the priority list is valid, returns a 200" {
+            with(Fixture()) {
+                val jsonObj = json {
+                    obj(
+                        "priority" to listOf(4, 2, 1, 3)
+                    )
+                }
+                whenever(todoList.prioritize(any())).thenReturn(Success)
+                testServer {
+                    val response = client
+                        .post(PORT, "localhost", "/prioritize")
+                        .sendJsonObjectAwait(jsonObj)
+                    assertEquals(200, response.statusCode())
+                    assertEquals("prioritized", response.bodyAsString())
+                    verify(todoList).prioritize(jsonObj)
+                }
             }
-            whenever(todoList.prioritize(any())).thenReturn(Success)
-            testServer {
-                val response = client
-                    .post(PORT, "localhost", "/prioritize")
-                    .sendJsonObjectAwait(jsonObj)
-                assertEquals(200, response.statusCode())
-                assertEquals("prioritized", response.bodyAsString())
-                verify(todoList).prioritize(jsonObj)
+        }
+
+        "when the priority list is invalid, returns a 400" {
+            with(Fixture()) {
+                val jsonObj = json {
+                    obj(
+                        "priority" to listOf(4, 2, 1, 3)
+                    )
+                }
+                whenever(todoList.prioritize(any()))
+                    .thenReturn(Fail("Priorty list is invalid"))
+                testServer {
+                    val response = client
+                        .post(PORT, "localhost", "/prioritize")
+                        .sendJsonObjectAwait(jsonObj)
+                    assertEquals(400, response.statusCode())
+                    assertEquals("Priorty list is invalid", response.bodyAsString())
+                    verify(todoList).prioritize(jsonObj)
+                }
             }
         }
     }

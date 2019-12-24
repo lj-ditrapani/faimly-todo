@@ -1,3 +1,2 @@
-- http tests: fail cases
-- dockerize (multi-stage build)
 - jacoco
+- dockerize (multi-stage build)
