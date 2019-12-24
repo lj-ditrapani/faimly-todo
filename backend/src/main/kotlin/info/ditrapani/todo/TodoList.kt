@@ -18,7 +18,7 @@ interface ITodoList {
 }
 
 class TodoList : ITodoList {
-    val list = mutableListOf<Item>()
+    private val list = mutableListOf<Item>()
 
     override fun list(): JsonObject = json {
         obj("list" to JsonArray(list.map { it.toJson() }))

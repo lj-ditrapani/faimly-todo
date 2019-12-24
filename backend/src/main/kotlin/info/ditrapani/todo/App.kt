@@ -11,7 +11,10 @@ import org.apache.logging.log4j.Logger
 
 const val PORT = 44770
 
-class Verticle(val todoList: ITodoList, val logger: Logger) : CoroutineVerticle() {
+class Verticle(
+    private val todoList: ITodoList,
+    private val logger: Logger
+) : CoroutineVerticle() {
     override suspend fun start() {
         val router = Router.router(vertx)
         router.route().handler(BodyHandler.create())
@@ -49,12 +52,11 @@ class Verticle(val todoList: ITodoList, val logger: Logger) : CoroutineVerticle(
     }
 }
 
-fun onResult(result: Result, successMessage: String, response: HttpServerResponse) {
+fun onResult(result: Result, successMessage: String, response: HttpServerResponse) =
     when (result) {
         is Success -> response.end(successMessage)
         is Fail -> response.setStatusCode(400).end(result.reason)
     }
-}
 
 fun main(args: Array<String>) {
     val logger = LogManager.getLogger("todo")

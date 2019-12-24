@@ -4,7 +4,11 @@ import io.vertx.core.json.JsonObject
 import io.vertx.kotlin.core.json.json
 import io.vertx.kotlin.core.json.obj
 
-data class Item(val author: String, val description: String, val status: Status) {
+data class Item(
+    private val author: String,
+    private val description: String,
+    val status: Status
+) {
     fun toJson(): JsonObject {
         val jsonObj = json {
             obj(
