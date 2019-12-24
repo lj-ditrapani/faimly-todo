@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-extra["log4jVersion"] = "2.12.1"
-extra["vertxVersion"] = "3.8.3"
+extra["log4jVersion"] = "2.13.0"
+extra["vertxVersion"] = "3.8.4"
 
 plugins {
     kotlin("jvm").version("1.3.61")
@@ -26,8 +26,6 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-api:$log4jVersion")
     implementation("org.apache.logging.log4j:log4j-core:$log4jVersion")
 
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
     testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.2")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
@@ -38,7 +36,7 @@ application {
 }
 
 ktlint {
-    version.set("0.35.0")
+    version.set("0.36.0")
     enableExperimentalRules.set(true)
 }
 
