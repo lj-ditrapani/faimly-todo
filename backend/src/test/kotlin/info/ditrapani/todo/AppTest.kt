@@ -1,11 +1,18 @@
 package info.ditrapani.todo
 
+import com.nhaarman.mockitokotlin2.mock
 import io.kotlintest.specs.FreeSpec
-import kotlin.test.assertNotNull
+import io.vertx.core.Vertx
+import io.vertx.kotlin.core.deployVerticleAwait
+import kotlinx.coroutines.runBlocking
+import org.apache.logging.log4j.Logger
 
 class AppTest : FreeSpec({
-    "testAppHasAGreeting" {
-        val classUnderTest = App()
-        assertNotNull(classUnderTest.greeting, "app should have a greeting")
+    "can deploy the verticle" {
+        val logger = mock<Logger>()
+        val vertx = Vertx.vertx()
+        runBlocking {
+            vertx.deployVerticleAwait(Verticle(logger))
+        }
     }
 })

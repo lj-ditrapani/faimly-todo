@@ -1,0 +1,3 @@
+- define & test Todo class
+- dockerize (multi-stage build)
+- verticle unit tests
