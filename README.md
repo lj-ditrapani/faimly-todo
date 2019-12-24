@@ -15,11 +15,12 @@ Build
 
     cd backend
     ./gradlew build
-    ./gradlew installDist
 
 
 Run
 ---
+
+    ./gradlew installDist
     ./build/install/todo/bin/todo
 
 

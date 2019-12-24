@@ -7,9 +7,9 @@ import io.vertx.kotlin.coroutines.CoroutineVerticle
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 
-class Verticle(val todoList: ITodoList, val logger: Logger) : CoroutineVerticle() {
-    val port = 44770
+const val PORT = 44770
 
+class Verticle(val todoList: ITodoList, val logger: Logger) : CoroutineVerticle() {
     override suspend fun start() {
         val router = Router.router(vertx)
         router.get("/list").handler { routingContext ->
@@ -36,8 +36,8 @@ class Verticle(val todoList: ITodoList, val logger: Logger) : CoroutineVerticle(
         val server = vertx.createHttpServer()
         server.requestHandler(router)
         logger.info("Starting server")
-        server.listenAwait(port)
-        logger.info("Server started on port $port")
+        server.listenAwait(PORT)
+        logger.info("Server started on port $PORT")
     }
 }
 
