@@ -9,23 +9,25 @@ Server: vert.x kotlin http server
 Backend
 =======
 
+Build & run dependecies: [docker](https://www.docker.com/)
+
 
 Build
 -----
 
     cd backend
-    ./gradlew build
-
+    sh build.sh
 
 Run
 ---
 
-    ./gradlew installDist
-    ./build/install/todo/bin/todo
+    sh docker-run.sh
 
 
 Develop
 -------
+
+Develop dependecies: [java 11.0.5](https://sdkman.io/)
 
 Format code
 
@@ -43,6 +45,15 @@ Run test coverage report
 Lint, test, run
 
     ./gradlew ktlintFormat test run
+
+Dev build
+
+    ./gradlew build
+
+Run installed
+
+    ./gradlew installDist
+    ./build/install/todo/bin/todo
 
 
 Client

@@ -1,2 +1,1 @@
 - jacoco
-- dockerize (multi-stage build)
