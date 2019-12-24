@@ -1,6 +1,7 @@
 package info.ditrapani.todo
 
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import io.kotlintest.specs.FreeSpec
 import io.vertx.core.Vertx
@@ -9,10 +10,10 @@ import io.vertx.kotlin.core.deployVerticleAwait
 import io.vertx.kotlin.core.json.json
 import io.vertx.kotlin.core.json.obj
 import io.vertx.kotlin.ext.web.client.sendAwait
+import io.vertx.kotlin.ext.web.client.sendJsonObjectAwait
 import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.apache.logging.log4j.Logger
-// sendJsonObjectAwait
 
 class AppTest : FreeSpec({
     class Fixture {
@@ -44,6 +45,26 @@ class AppTest : FreeSpec({
                 )
                 assertEquals(200, response.statusCode())
                 assertEquals(jsonObj, response.bodyAsJsonObject())
+                verify(todoList).list()
+            }
+        }
+    }
+
+    "/additem calls ITodoList.addItem() with payload and returns a 200" {
+        with(Fixture()) {
+            val jsonObj = json {
+                obj(
+                    "author" to "John",
+                    "description" to "Wash car"
+                )
+            }
+            testServer {
+                val response = client
+                    .post(PORT, "localhost", "/additem")
+                    .sendJsonObjectAwait(jsonObj)
+                assertEquals(200, response.statusCode())
+                assertEquals("item added", response.bodyAsString())
+                verify(todoList).addItem(jsonObj)
             }
         }
     }
