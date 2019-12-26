@@ -2,11 +2,15 @@ package info.ditrapani.familytodo
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.navigation.findNavController
 
+const val TAG = "SetupFrag"
 
 class SetupFragment : Fragment() {
 
@@ -20,7 +24,11 @@ class SetupFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.setup_fragment, container, false)
+        Log.d(TAG, "onCreateView")
+        val view = inflater.inflate(R.layout.setup_fragment, container, false)
+        val button = view.findViewById<Button>(R.id.ok_button)
+        button.setOnClickListener(::goToTodo)
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -29,7 +37,9 @@ class SetupFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
-    fun onClick(view: View) {
-        
+    fun goToTodo(view: View) {
+        view.findNavController().navigate(
+            SetupFragmentDirections.actionSetupFragmentToTodoFragment()
+        )
     }
 }
