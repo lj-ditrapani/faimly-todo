@@ -4,11 +4,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashFragment">
+    app:startDestination="@id/setupFragment">
 
     <fragment
         android:id="@+id/splashFragment"
         android:name="info.ditrapani.familytodo.SplashFragment"
         android:label="splash_fragment"
-        tools:layout="@layout/splash_fragment" />
+        tools:layout="@layout/splash_fragment" >
+        <action
+            android:id="@+id/action_splashFragment_to_setupFragment"
+            app:destination="@id/setupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setupFragment"
+        android:name="info.ditrapani.familytodo.SetupFragment"
+        android:label="setup_fragment"
+        tools:layout="@layout/setup_fragment">
+        <action
+            android:id="@+id/action_setupFragment_to_todoFragment"
+            app:destination="@id/todoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addItemFragment"
+        android:name="info.ditrapani.familytodo.AddItemFragment"
+        android:label="add_item_fragment"
+        tools:layout="@layout/add_item_fragment" />
+    <fragment
+        android:id="@+id/todoFragment"
+        android:name="info.ditrapani.familytodo.TodoFragment"
+        android:label="todo_fragment"
+        tools:layout="@layout/todo_fragment" >
+        <action
+            android:id="@+id/action_todoFragment_to_addItemFragment"
+            app:destination="@id/addItemFragment" />
+        <action
+            android:id="@+id/action_todoFragment_to_prioritizeFragment"
+            app:destination="@id/prioritizeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/prioritizeFragment"
+        android:name="info.ditrapani.familytodo.PrioritizeFragment"
+        android:label="prioritize_fragment"
+        tools:layout="@layout/prioritize_fragment" />
 </navigation>

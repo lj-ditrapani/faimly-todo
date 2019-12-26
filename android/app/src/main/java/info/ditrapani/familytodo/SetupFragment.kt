@@ -29,4 +29,7 @@ class SetupFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
+    fun onClick(view: View) {
+        
+    }
 }

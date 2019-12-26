@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Family Todo</string>
+    <string name="add_item_title">Add an item to the todo list</string>
 </resources>
