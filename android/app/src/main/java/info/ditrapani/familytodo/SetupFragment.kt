@@ -26,7 +26,7 @@ class SetupFragment : Fragment() {
     ): View? {
         Log.d(TAG, "onCreateView")
         val view = inflater.inflate(R.layout.setup_fragment, container, false)
-        val button = view.findViewById<Button>(R.id.ok_button)
+        val button = view.findViewById<Button>(R.id.setup_ok_button)
         button.setOnClickListener(::goToTodo)
         return view
     }

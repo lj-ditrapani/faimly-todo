@@ -26,7 +26,7 @@ class TodoFragment : Fragment() {
         val viewManager = LinearLayoutManager(activity)
     val viewAdapter = RecyclerAdapter()
         val view = inflater.inflate(R.layout.todo_fragment, container, false)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler).apply {
+        view.findViewById<RecyclerView>(R.id.recycler).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
@@ -41,14 +41,23 @@ class TodoFragment : Fragment() {
 
 }
 
-
 class RecyclerAdapter() : RecyclerView.Adapter<RecyclerAdapter.Holder>() {
     private val TAG = "TodoFragment"
 
     class Holder(private val item: View) : RecyclerView.ViewHolder(item) {
+        fun setDescription(description: String) {
+            val view = item.findViewById<TextView>(R.id.description)
+            view.setText(description)
+        }
+
         fun setAuthor(author: String) {
             val view = item.findViewById<TextView>(R.id.author)
             view.setText(author)
+        }
+
+        fun setWorker(worker: String) {
+            val view = item.findViewById<TextView>(R.id.worker)
+            view.setText(worker)
         }
     }
 
@@ -66,6 +75,8 @@ class RecyclerAdapter() : RecyclerView.Adapter<RecyclerAdapter.Holder>() {
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         Log.d(TAG, "onBindViewHolder called")
-        holder.setAuthor(position.toString())
+        holder.setDescription("Description  $position")
+        holder.setAuthor("Author: $position")
+        holder.setWorker("N/A")
     }
 }
