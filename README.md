@@ -18,6 +18,7 @@ I want to learn
 - NavHostFragment
 - NavController
 - NavGraph
+- RecyclerView
 
 Fragments
 - Splash
