@@ -5,8 +5,8 @@ object Todo : Status()
 data class Done(val worker: String) : Status()
 
 data class TodoItem(
-    private val description: String,
-    private val author: String,
+    val description: String,
+    val author: String,
     val status: Status
 ) {
     fun getWorker(): String = when(status) {
