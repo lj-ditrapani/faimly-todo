@@ -83,6 +83,7 @@ class RecyclerHolder(
     fun setCompleted(isCompleted: Boolean) {
         val view = item.findViewById<CheckBox>(R.id.done)
         view.setChecked(isCompleted)
+        view.setEnabled(!isCompleted)
     }
 
     fun setWorker(worker: String) {

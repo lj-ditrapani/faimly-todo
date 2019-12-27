@@ -1,0 +1,10 @@
+- Dagger
+    - Get rid of global TodoList
+    - Make it more typesafe (get rid of lateinit vars)
+- TodoList method calls should return coroutines?
+- TodoList calls server instead of own local data model
+- Need internet permissions?
+- LiveData?
+- Use custom launch icon
+- review
+- screenshots in readme
