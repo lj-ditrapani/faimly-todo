@@ -25,7 +25,7 @@ Fragments
 - Setup
 - Todo view
     - can mark items as done here
-    - Menue at bottom to Setup | Add | Clean | Prioritize
+    - Menu at bottom to Setup | Add | Clean | Order | Refresh
 - Add view
 - Prioritize view
 

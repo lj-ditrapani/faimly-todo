@@ -11,9 +11,8 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.navigation.findNavController
 
-const val TAG = "SetupFrag"
-
 class SetupFragment : Fragment() {
+    private val TAG = "SetupFrag"
 
     companion object {
         fun newInstance() = SetupFragment()

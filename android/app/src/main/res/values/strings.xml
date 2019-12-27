@@ -7,7 +7,7 @@
     <string name="todo_server_url">Todo server URL</string>
     <string name="todo_item_description">Todo Item Description</string>
     <string name="add_item">Add</string>
-    <string name="clear_list">Clear</string>
+    <string name="clean_list">Clean</string>
     <string name="prioritize">Order</string>
     <string name="refresh">Refresh</string>
 </resources>

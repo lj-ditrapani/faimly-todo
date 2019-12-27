@@ -44,7 +44,7 @@ class TodoFragment : Fragment() {
         val addButton = todoView.findViewById<Button>(R.id.todo_add_item_button)
         addButton.setOnClickListener(::handleAdd)
         val cleanButton = todoView.findViewById<Button>(R.id.todo_clean_list_button)
-        addButton.setOnClickListener(::handleClean)
+        cleanButton.setOnClickListener(::handleClean)
     }
 
     fun handleAdd(view: View) {
