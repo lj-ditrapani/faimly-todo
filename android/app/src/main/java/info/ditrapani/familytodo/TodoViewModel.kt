@@ -53,57 +53,57 @@ class TodoViewModel : ViewModel() {
     }
 }
 
+class RecyclerHolder(
+    private val item: View,
+    private val itemDoneClicked: (Int) -> Unit
+) : RecyclerView.ViewHolder(item), View.OnClickListener {
+    init {
+        val checkBox = item.findViewById<CheckBox>(R.id.done)
+        checkBox.setOnClickListener(this)
+    }
+
+    fun setDescription(description: String) {
+        val view = item.findViewById<TextView>(R.id.description)
+        view.setText(description)
+    }
+
+    fun setAuthor(author: String) {
+        val view = item.findViewById<TextView>(R.id.author)
+        view.setText(author)
+    }
+
+    fun setCompleted(isCompleted: Boolean) {
+        val view = item.findViewById<CheckBox>(R.id.done)
+        view.setChecked(isCompleted)
+    }
+
+    fun setWorker(worker: String) {
+        val view = item.findViewById<TextView>(R.id.worker)
+        view.setText(worker)
+    }
+
+    override fun onClick(v: View?) {
+        itemDoneClicked(adapterPosition)
+    }
+}
+
 class RecyclerAdapter(
     private val list: List<TodoItem>,
     private val itemDone: (Int) -> Unit
-) : RecyclerView.Adapter<RecyclerAdapter.Holder>() {
+) : RecyclerView.Adapter<RecyclerHolder>() {
     private val TAG = "TodoFragment"
 
-    class Holder(
-        private val item: View,
-        private val itemDoneClicked: (Int) -> Unit
-    ) : RecyclerView.ViewHolder(item), View.OnClickListener {
-        init {
-            val checkBox = item.findViewById<CheckBox>(R.id.done)
-            checkBox.setOnClickListener(this)
-        }
-
-        fun setDescription(description: String) {
-            val view = item.findViewById<TextView>(R.id.description)
-            view.setText(description)
-        }
-
-        fun setAuthor(author: String) {
-            val view = item.findViewById<TextView>(R.id.author)
-            view.setText(author)
-        }
-
-        fun setCompleted(isCompleted: Boolean) {
-            val view = item.findViewById<CheckBox>(R.id.done)
-            view.setChecked(isCompleted)
-        }
-
-        fun setWorker(worker: String) {
-            val view = item.findViewById<TextView>(R.id.worker)
-            view.setText(worker)
-        }
-
-        override fun onClick(v: View?) {
-            itemDoneClicked(adapterPosition)
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerHolder {
         Log.d(TAG, "onCreateViewHolder")
         val view = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.todo_item, parent, false)
-        return Holder(view, itemDone)
+        return RecyclerHolder(view, itemDone)
     }
 
     override fun getItemCount(): Int = list.size
 
-    override fun onBindViewHolder(holder: Holder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder called")
         val item = list[position]
         holder.setDescription(item.description)
