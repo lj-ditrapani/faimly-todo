@@ -40,6 +40,13 @@ class SetupFragment : Fragment() {
         button.setOnClickListener(::handleSetup)
     }
 
+    override fun onResume() {
+        super.onResume()
+        val userName = setupView.findViewById<EditText>(R.id.user_name)
+        val serverUrl = setupView.findViewById<EditText>(R.id.server_url)
+        viewModel.setupFields(userName, serverUrl)
+    }
+
     fun handleSetup(@Suppress("UNUSED_PARAMETER") view: View) {
         val userName = setupView.findViewById<EditText>(R.id.user_name).text.toString()
         val serverUrl = setupView.findViewById<EditText>(R.id.server_url).text.toString()

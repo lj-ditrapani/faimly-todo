@@ -16,24 +16,34 @@ interface ITodoAdder {
 
 interface ITodoSetup {
     fun setup(userName: String, serverUrl: String)
+    fun isSetup(): Boolean
+    fun getUserName(): String
+    fun getServerUrl(): String
 }
 
-interface ITodoPrioritize {
+interface ITodoOrder {
     fun list(): List<TodoItem>
-    fun prioritize(priority: List<Int>): Result
+    fun order(priority: List<Int>): Result
 }
 
-class TodoList : ITodoSetup,
+class TodoList :
+    ITodoSetup,
     ITodoList,
     ITodoAdder,
-    ITodoPrioritize {
+    ITodoOrder {
+    private var ready = false
     lateinit private var userName: String
     lateinit private var serverUrl: String
     private val list = mutableListOf<TodoItem>()
 
+    override fun isSetup(): Boolean = ready
+    override fun getUserName(): String = userName
+    override fun getServerUrl(): String = serverUrl
+
     override fun setup(userName: String, serverUrl: String) {
         this.userName = userName
         this.serverUrl = serverUrl
+        this.ready = true
     }
 
     override fun list(): List<TodoItem> = list
@@ -62,7 +72,7 @@ class TodoList : ITodoSetup,
         }
     }
 
-    override fun prioritize(priority: List<Int>): Result =
+    override fun order(priority: List<Int>): Result =
         if (priority.sorted() == 0.until(list.size).toList()) {
             val newList = ArrayList<TodoItem>(list.size)
             for (i in priority) {

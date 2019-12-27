@@ -1,5 +1,6 @@
 package info.ditrapani.familytodo.setup
 
+import android.widget.EditText
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import info.ditrapani.familytodo.model.ITodoSetup
@@ -12,6 +13,13 @@ class SetupViewModel() : ViewModel() {
     fun construct(todoSetup: ITodoSetup, nav: NavController) {
         this.todoSetup = todoSetup
         this.nav = nav
+    }
+
+    fun setupFields(userName: EditText, serverUrl: EditText) {
+        if (todoSetup.isSetup()) {
+            userName.setText(todoSetup.getUserName())
+            serverUrl.setText(todoSetup.getServerUrl())
+        }
     }
 
     fun setup(userName: String, serverUrl: String) {
