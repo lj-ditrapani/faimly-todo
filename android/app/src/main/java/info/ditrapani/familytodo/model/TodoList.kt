@@ -1,4 +1,4 @@
-package info.ditrapani.familytodo
+package info.ditrapani.familytodo.model
 
 sealed class Result
 data class Fail(val reason: String) : Result()
@@ -23,7 +23,10 @@ interface ITodoPrioritize {
     fun prioritize(priority: List<Int>): Result
 }
 
-class TodoList : ITodoSetup, ITodoList, ITodoAdder, ITodoPrioritize {
+class TodoList : ITodoSetup,
+    ITodoList,
+    ITodoAdder,
+    ITodoPrioritize {
     lateinit private var userName: String
     lateinit private var serverUrl: String
     private val list = mutableListOf<TodoItem>()
@@ -36,11 +39,18 @@ class TodoList : ITodoSetup, ITodoList, ITodoAdder, ITodoPrioritize {
     override fun list(): List<TodoItem> = list
 
     override fun addItem(description: String) {
-        list += TodoItem(description, userName, Todo)
+        list += TodoItem(
+            description,
+            userName,
+            Todo
+        )
     }
 
     override fun completeItem(itemIndex: Int): Result {
-        list[itemIndex] = list[itemIndex].copy(status = Done(userName))
+        list[itemIndex] = list[itemIndex].copy(status = Done(
+            userName
+        )
+        )
         return Success
     }
 

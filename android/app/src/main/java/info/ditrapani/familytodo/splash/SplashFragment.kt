@@ -1,4 +1,4 @@
-package info.ditrapani.familytodo
+package info.ditrapani.familytodo.splash
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import info.ditrapani.familytodo.R
 
 
 class SplashFragment : Fragment() {

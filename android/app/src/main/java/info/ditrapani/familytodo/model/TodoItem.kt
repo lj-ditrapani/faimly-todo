@@ -1,4 +1,4 @@
-package info.ditrapani.familytodo
+package info.ditrapani.familytodo.model
 
 sealed class Status
 object Todo : Status()

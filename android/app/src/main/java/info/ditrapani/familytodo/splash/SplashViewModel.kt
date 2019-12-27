@@ -1,4 +1,4 @@
-package info.ditrapani.familytodo
+package info.ditrapani.familytodo.splash
 
 import androidx.lifecycle.ViewModel
 

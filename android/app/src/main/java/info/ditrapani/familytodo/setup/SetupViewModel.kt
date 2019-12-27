@@ -1,13 +1,8 @@
-package info.ditrapani.familytodo
+package info.ditrapani.familytodo.setup
 
-import android.nfc.Tag
-import android.util.Log
-import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
+import info.ditrapani.familytodo.model.ITodoSetup
 
 class SetupViewModel() : ViewModel() {
     private val TAG = "SetupViewModel"

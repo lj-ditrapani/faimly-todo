@@ -1,7 +1,7 @@
-package info.ditrapani.familytodo
+package info.ditrapani.familytodo.order
 
 import androidx.lifecycle.ViewModel
 
-class PrioritizeViewModel : ViewModel() {
+class OrderViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }

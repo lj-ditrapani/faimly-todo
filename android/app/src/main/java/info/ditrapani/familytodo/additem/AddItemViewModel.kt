@@ -1,7 +1,8 @@
-package info.ditrapani.familytodo
+package info.ditrapani.familytodo.additem
 
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import info.ditrapani.familytodo.model.ITodoAdder
 
 class AddItemViewModel : ViewModel() {
     lateinit private var todoAdder : ITodoAdder

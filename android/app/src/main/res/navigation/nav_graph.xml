@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="info.ditrapani.familytodo.SplashFragment"
+        android:name="info.ditrapani.familytodo.splash.SplashFragment"
         android:label="splash_fragment"
         tools:layout="@layout/splash_fragment" >
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/setupFragment"
-        android:name="info.ditrapani.familytodo.SetupFragment"
+        android:name="info.ditrapani.familytodo.setup.SetupFragment"
         android:label="setup_fragment"
         tools:layout="@layout/setup_fragment">
         <action
@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/addItemFragment"
-        android:name="info.ditrapani.familytodo.AddItemFragment"
+        android:name="info.ditrapani.familytodo.additem.AddItemFragment"
         android:label="add_item_fragment"
         tools:layout="@layout/add_item_fragment" >
         <action
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/todoFragment"
-        android:name="info.ditrapani.familytodo.TodoFragment"
+        android:name="info.ditrapani.familytodo.todo.TodoFragment"
         android:label="todo_fragment"
         tools:layout="@layout/todo_fragment" >
         <action
@@ -53,9 +53,9 @@
     </fragment>
     <fragment
         android:id="@+id/prioritizeFragment"
-        android:name="info.ditrapani.familytodo.PrioritizeFragment"
+        android:name="info.ditrapani.familytodo.order.OrderFragment"
         android:label="prioritize_fragment"
-        tools:layout="@layout/prioritize_fragment" >
+        tools:layout="@layout/order_fragment" >
         <action
             android:id="@+id/action_prioritizeFragment_to_todoFragment"
             app:destination="@id/todoFragment" />

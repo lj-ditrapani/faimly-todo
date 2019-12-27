@@ -1,4 +1,4 @@
-package info.ditrapani.familytodo
+package info.ditrapani.familytodo.order
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -6,26 +6,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import info.ditrapani.familytodo.R
 
 
-class PrioritizeFragment : Fragment() {
+class OrderFragment : Fragment() {
 
     companion object {
-        fun newInstance() = PrioritizeFragment()
+        fun newInstance() = OrderFragment()
     }
 
-    private lateinit var viewModel: PrioritizeViewModel
+    private lateinit var viewModel: OrderViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.prioritize_fragment, container, false)
+        return inflater.inflate(R.layout.order_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(PrioritizeViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(OrderViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

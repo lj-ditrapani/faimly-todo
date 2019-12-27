@@ -1,4 +1,4 @@
-package info.ditrapani.familytodo
+package info.ditrapani.familytodo.todo
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +9,11 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
+import info.ditrapani.familytodo.R
+import info.ditrapani.familytodo.model.Done
+import info.ditrapani.familytodo.model.ITodoList
+import info.ditrapani.familytodo.model.Todo
+import info.ditrapani.familytodo.model.TodoItem
 
 class TodoViewModel : ViewModel() {
     lateinit private var todoList: ITodoList
@@ -21,7 +26,10 @@ class TodoViewModel : ViewModel() {
     ) {
         this.todoList = todoList
         this.nav = nav
-        this.recyclerAdapter = RecyclerAdapter(todoList.list(), ::itemDone)
+        this.recyclerAdapter = RecyclerAdapter(
+            todoList.list(),
+            ::itemDone
+        )
     }
 
     fun getRecyclerAdapter(): RecyclerAdapter = recyclerAdapter

@@ -1,4 +1,4 @@
-package info.ditrapani.familytodo
+package info.ditrapani.familytodo.additem
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.navigation.findNavController
+import info.ditrapani.familytodo.R
+import info.ditrapani.familytodo.model.TodoListFactory
 
 
 class AddItemFragment : Fragment() {

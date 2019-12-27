@@ -1,17 +1,17 @@
-package info.ditrapani.familytodo
+package info.ditrapani.familytodo.todo
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import info.ditrapani.familytodo.R
+import info.ditrapani.familytodo.model.TodoListFactory
 
 class TodoFragment : Fragment() {
 
