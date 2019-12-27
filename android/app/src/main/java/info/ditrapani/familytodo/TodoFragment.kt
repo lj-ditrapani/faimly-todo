@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -17,6 +18,7 @@ class TodoFragment : Fragment() {
         fun newInstance() = TodoFragment()
     }
 
+    private lateinit var todoView: View
     private lateinit var viewModel: TodoViewModel
 
     override fun onCreateView(
@@ -25,18 +27,19 @@ class TodoFragment : Fragment() {
     ): View? {
         val viewManager = LinearLayoutManager(activity)
         val viewAdapter = RecyclerAdapter()
-        val view = inflater.inflate(R.layout.todo_fragment, container, false)
-        view.findViewById<RecyclerView>(R.id.recycler).apply {
+        todoView = inflater.inflate(R.layout.todo_fragment, container, false)
+        todoView.findViewById<RecyclerView>(R.id.recycler).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
         }
-        return view
+        return todoView
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(TodoViewModel::class.java)
+        viewModel.construct(TodoListFactory.instance, todoView.findNavController())
     }
 
 }

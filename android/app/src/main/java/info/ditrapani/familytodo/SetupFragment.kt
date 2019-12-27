@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import androidx.navigation.findNavController
 
 const val TAG = "SetupFrag"
@@ -18,6 +19,7 @@ class SetupFragment : Fragment() {
         fun newInstance() = SetupFragment()
     }
 
+    private lateinit var setupView: View
     private lateinit var viewModel: SetupViewModel
 
     override fun onCreateView(
@@ -25,21 +27,21 @@ class SetupFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.d(TAG, "onCreateView")
-        val view = inflater.inflate(R.layout.setup_fragment, container, false)
-        val button = view.findViewById<Button>(R.id.setup_ok_button)
-        button.setOnClickListener(::goToTodo)
-        return view
+        setupView = inflater.inflate(R.layout.setup_fragment, container, false)
+        return setupView
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(SetupViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel.construct(TodoListFactory.instance, setupView.findNavController())
+        val button = setupView.findViewById<Button>(R.id.setup_ok_button)
+        button.setOnClickListener(::handleSetup)
     }
 
-    fun goToTodo(view: View) {
-        view.findNavController().navigate(
-            SetupFragmentDirections.actionSetupFragmentToTodoFragment()
-        )
+    fun handleSetup(view: View) {
+        val userName = setupView.findViewById<EditText>(R.id.user_name).text.toString()
+        val serverUrl = setupView.findViewById<EditText>(R.id.server_url).text.toString()
+        viewModel.setup(userName, serverUrl)
     }
 }
