@@ -4,11 +4,21 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 
 class TodoViewModel : ViewModel() {
-    lateinit private var todoSetup: ITodoSetup
+    lateinit private var todoList: ITodoList
     lateinit private var nav: NavController
 
-    fun construct(todoSetup: ITodoSetup, nav: NavController) {
-        this.todoSetup = todoSetup
+    fun construct(todoList: ITodoList, nav: NavController) {
+        this.todoList = todoList
         this.nav = nav
+    }
+
+    fun goToAdd() {
+        nav.navigate(
+            TodoFragmentDirections.actionTodoFragmentToAddItemFragment()
+        )
+    }
+
+    fun cleanList() {
+        todoList.cleanList()
     }
 }

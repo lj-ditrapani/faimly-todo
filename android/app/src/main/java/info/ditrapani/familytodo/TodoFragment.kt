@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,6 +41,18 @@ class TodoFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(TodoViewModel::class.java)
         viewModel.construct(TodoListFactory.instance, todoView.findNavController())
+        val addButton = todoView.findViewById<Button>(R.id.todo_add_item_button)
+        addButton.setOnClickListener(::handleAdd)
+        val cleanButton = todoView.findViewById<Button>(R.id.todo_clean_list_button)
+        addButton.setOnClickListener(::handleClean)
+    }
+
+    fun handleAdd(view: View) {
+        viewModel.goToAdd()
+    }
+
+    fun handleClean(view: View) {
+        viewModel.cleanList()
     }
 
 }

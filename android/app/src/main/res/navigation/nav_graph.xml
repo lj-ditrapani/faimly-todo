@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_splashFragment_to_setupFragment"
             app:destination="@id/setupFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_todoFragment"
+            app:destination="@id/todoFragment" />
     </fragment>
     <fragment
         android:id="@+id/setupFragment"
@@ -28,7 +31,11 @@
         android:id="@+id/addItemFragment"
         android:name="info.ditrapani.familytodo.AddItemFragment"
         android:label="add_item_fragment"
-        tools:layout="@layout/add_item_fragment" />
+        tools:layout="@layout/add_item_fragment" >
+        <action
+            android:id="@+id/action_addItemFragment_to_todoFragment"
+            app:destination="@id/todoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/todoFragment"
         android:name="info.ditrapani.familytodo.TodoFragment"
@@ -40,10 +47,17 @@
         <action
             android:id="@+id/action_todoFragment_to_prioritizeFragment"
             app:destination="@id/prioritizeFragment" />
+        <action
+            android:id="@+id/action_todoFragment_to_setupFragment"
+            app:destination="@id/setupFragment" />
     </fragment>
     <fragment
         android:id="@+id/prioritizeFragment"
         android:name="info.ditrapani.familytodo.PrioritizeFragment"
         android:label="prioritize_fragment"
-        tools:layout="@layout/prioritize_fragment" />
+        tools:layout="@layout/prioritize_fragment" >
+        <action
+            android:id="@+id/action_prioritizeFragment_to_todoFragment"
+            app:destination="@id/todoFragment" />
+    </fragment>
 </navigation>
