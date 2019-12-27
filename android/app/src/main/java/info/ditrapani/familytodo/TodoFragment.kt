@@ -24,7 +24,7 @@ class TodoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val viewManager = LinearLayoutManager(activity)
-    val viewAdapter = RecyclerAdapter()
+        val viewAdapter = RecyclerAdapter()
         val view = inflater.inflate(R.layout.todo_fragment, container, false)
         view.findViewById<RecyclerView>(R.id.recycler).apply {
             setHasFixedSize(true)
