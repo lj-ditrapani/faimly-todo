@@ -11,3 +11,6 @@
 - control keyboard better
     - only show on setup & add & splash
     - hide on mainview & order
+- add ping endpoint to check server_url on setup
+- unit tests
+- add ktlint

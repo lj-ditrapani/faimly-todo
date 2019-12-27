@@ -59,12 +59,14 @@ class OrderViewModel : ViewModel() {
         val item = list.removeAt(index)
         list.add(index - 1, item)
         recyclerAdapter.notifyItemMoved(index, index - 1)
+        recyclerAdapter.notifyItemRangeChanged(index - 1, 2)
     }
 
     fun itemDown(index: Int) {
         val item = list.removeAt(index)
         list.add(index + 1, item)
         recyclerAdapter.notifyItemMoved(index, index + 1)
+        recyclerAdapter.notifyItemRangeChanged(index, 2)
     }
 }
 
@@ -99,6 +101,21 @@ class RecyclerHolder(
         view.setChecked(isCompleted)
         view.setEnabled(false)
     }
+
+    fun checkBounds(position: Int, size: Int) {
+        val upButton = item.findViewById<Button>(R.id.up_button)
+        val downButton = item.findViewById<Button>(R.id.down_button)
+        if (position == 0) {
+            upButton.setEnabled(false)
+        } else {
+            upButton.setEnabled(true)
+        }
+        if (position == size - 1) {
+            downButton.setEnabled(false)
+        } else {
+            downButton.setEnabled(true)
+        }
+    }
 }
 
 class RecyclerAdapter(
@@ -129,5 +146,6 @@ class RecyclerAdapter(
             is Done -> true
         }
         holder.setCompleted(isCompleted)
+        holder.checkBounds(position, list.size)
     }
 }
