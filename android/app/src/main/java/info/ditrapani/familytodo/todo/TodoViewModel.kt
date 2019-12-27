@@ -51,6 +51,12 @@ class TodoViewModel : ViewModel() {
         recyclerAdapter.notifyDataSetChanged()
     }
 
+    fun goToOrder() {
+        nav.navigate(
+            TodoFragmentDirections.actionTodoFragmentToOrderFragment()
+        )
+    }
+
     fun refresh() {
         recyclerAdapter.notifyDataSetChanged()
     }
@@ -100,7 +106,7 @@ class RecyclerAdapter(
     private val list: List<TodoItem>,
     private val itemDone: (Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerHolder>() {
-    private val TAG = "TodoFragment"
+    private val TAG = "todo.RecyclerAdapter"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerHolder {
         Log.d(TAG, "onCreateViewHolder")

@@ -10,4 +10,9 @@
     <string name="clean_list">Clean</string>
     <string name="prioritize">Order</string>
     <string name="refresh">Refresh</string>
+    <string name="description">Description</string>
+    <string name="author">Author</string>
+    <string name="worker">Worker</string>
+    <string name="up">Up</string>
+    <string name="down">Down</string>
 </resources>

@@ -33,12 +33,12 @@ class TodoFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(TodoViewModel::class.java)
-        val viewManager = LinearLayoutManager(activity)
         viewModel.construct(
             TodoListFactory.instance,
             todoView.findNavController()
         )
-        todoView.findViewById<RecyclerView>(R.id.recycler).apply {
+        val viewManager = LinearLayoutManager(activity)
+        todoView.findViewById<RecyclerView>(R.id.todo_recycler).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewModel.getRecyclerAdapter()
@@ -49,6 +49,8 @@ class TodoFragment : Fragment() {
         addButton.setOnClickListener(::handleAdd)
         val cleanButton = todoView.findViewById<Button>(R.id.todo_clean_list_button)
         cleanButton.setOnClickListener(::handleClean)
+        val orderButton = todoView.findViewById<Button>(R.id.todo_order_button)
+        orderButton.setOnClickListener(::handleOrder)
         val refreshButton = todoView.findViewById<Button>(R.id.todo_refresh_button)
         refreshButton.setOnClickListener(::handleRefresh)
     }
@@ -63,6 +65,10 @@ class TodoFragment : Fragment() {
 
     fun handleClean(@Suppress("UNUSED_PARAMETER") view: View) {
         viewModel.cleanList()
+    }
+
+    fun handleOrder(@Suppress("UNUSED_PARAMETER") view: View) {
+        viewModel.goToOrder()
     }
 
     fun handleRefresh(@Suppress("UNUSED_PARAMETER") view: View) {

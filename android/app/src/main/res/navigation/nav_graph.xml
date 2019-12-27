@@ -45,19 +45,19 @@
             android:id="@+id/action_todoFragment_to_addItemFragment"
             app:destination="@id/addItemFragment" />
         <action
-            android:id="@+id/action_todoFragment_to_prioritizeFragment"
-            app:destination="@id/prioritizeFragment" />
+            android:id="@+id/action_todoFragment_to_orderFragment"
+            app:destination="@id/orderFragment" />
         <action
             android:id="@+id/action_todoFragment_to_setupFragment"
             app:destination="@id/setupFragment" />
     </fragment>
     <fragment
-        android:id="@+id/prioritizeFragment"
+        android:id="@+id/orderFragment"
         android:name="info.ditrapani.familytodo.order.OrderFragment"
         android:label="prioritize_fragment"
         tools:layout="@layout/order_fragment" >
         <action
-            android:id="@+id/action_prioritizeFragment_to_todoFragment"
+            android:id="@+id/action_orderFragment_to_todoFragment"
             app:destination="@id/todoFragment" />
     </fragment>
 </navigation>
