@@ -8,3 +8,6 @@
 - Use custom launch icon
 - review
 - screenshots in readme
+- control keyboard better
+    - only show on setup & add & splash
+    - hide on mainview & order

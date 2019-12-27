@@ -9,16 +9,17 @@ Multi-user LAN todo.
 Client
 ======
 
-I want to learn
+My first android app.
+I made this project to learn
 - Fragment
-- ViewModel
-- LiveData
-- Dagger
-- MVVM
 - NavHostFragment
 - NavController
 - NavGraph
 - RecyclerView
+- ViewModel
+- Dagger
+- LiveData
+- MVVM
 
 Fragments
 - Splash
