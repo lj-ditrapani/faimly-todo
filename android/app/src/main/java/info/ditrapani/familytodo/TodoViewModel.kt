@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
@@ -20,7 +21,7 @@ class TodoViewModel : ViewModel() {
     ) {
         this.todoList = todoList
         this.nav = nav
-        this.recyclerAdapter = RecyclerAdapter(todoList.list())
+        this.recyclerAdapter = RecyclerAdapter(todoList.list(), ::itemDone)
     }
 
     fun getRecyclerAdapter(): RecyclerAdapter = recyclerAdapter
@@ -45,12 +46,28 @@ class TodoViewModel : ViewModel() {
     fun refresh() {
         recyclerAdapter.notifyDataSetChanged()
     }
+
+    fun itemDone(position: Int) {
+        todoList.completeItem(position)
+        recyclerAdapter.notifyItemChanged(position)
+    }
 }
 
-class RecyclerAdapter(val list: List<TodoItem>) : RecyclerView.Adapter<RecyclerAdapter.Holder>() {
+class RecyclerAdapter(
+    private val list: List<TodoItem>,
+    private val itemDone: (Int) -> Unit
+) : RecyclerView.Adapter<RecyclerAdapter.Holder>() {
     private val TAG = "TodoFragment"
 
-    class Holder(private val item: View) : RecyclerView.ViewHolder(item) {
+    class Holder(
+        private val item: View,
+        private val itemDoneClicked: (Int) -> Unit
+    ) : RecyclerView.ViewHolder(item), View.OnClickListener {
+        init {
+            val checkBox = item.findViewById<CheckBox>(R.id.done)
+            checkBox.setOnClickListener(this)
+        }
+
         fun setDescription(description: String) {
             val view = item.findViewById<TextView>(R.id.description)
             view.setText(description)
@@ -61,9 +78,18 @@ class RecyclerAdapter(val list: List<TodoItem>) : RecyclerView.Adapter<RecyclerA
             view.setText(author)
         }
 
+        fun setCompleted(isCompleted: Boolean) {
+            val view = item.findViewById<CheckBox>(R.id.done)
+            view.setChecked(isCompleted)
+        }
+
         fun setWorker(worker: String) {
             val view = item.findViewById<TextView>(R.id.worker)
             view.setText(worker)
+        }
+
+        override fun onClick(v: View?) {
+            itemDoneClicked(adapterPosition)
         }
     }
 
@@ -72,7 +98,7 @@ class RecyclerAdapter(val list: List<TodoItem>) : RecyclerView.Adapter<RecyclerA
         val view = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.todo_item, parent, false)
-        return Holder(view)
+        return Holder(view, itemDone)
     }
 
     override fun getItemCount(): Int = list.size
@@ -82,6 +108,11 @@ class RecyclerAdapter(val list: List<TodoItem>) : RecyclerView.Adapter<RecyclerA
         val item = list[position]
         holder.setDescription(item.description)
         holder.setAuthor(item.author)
+        val isCompleted = when(item.status) {
+            is Todo -> false
+            is Done -> true
+        }
+        holder.setCompleted(isCompleted)
         holder.setWorker(item.getWorker())
     }
 }

@@ -53,19 +53,19 @@ class TodoFragment : Fragment() {
         refreshButton.setOnClickListener(::handleRefresh)
     }
 
-    fun handleSetup(view: View) {
+    fun handleSetup(@Suppress("UNUSED_PARAMETER") view: View) {
         viewModel.goToSetup()
     }
 
-    fun handleAdd(view: View) {
+    fun handleAdd(@Suppress("UNUSED_PARAMETER") view: View) {
         viewModel.goToAdd()
     }
 
-    fun handleClean(view: View) {
+    fun handleClean(@Suppress("UNUSED_PARAMETER") view: View) {
         viewModel.cleanList()
     }
 
-    fun handleRefresh(view: View) {
+    fun handleRefresh(@Suppress("UNUSED_PARAMETER") view: View) {
         viewModel.refresh()
     }
 }

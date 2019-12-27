@@ -38,7 +38,7 @@ class SetupFragment : Fragment() {
         button.setOnClickListener(::handleSetup)
     }
 
-    fun handleSetup(view: View) {
+    fun handleSetup(@Suppress("UNUSED_PARAMETER") view: View) {
         val userName = setupView.findViewById<EditText>(R.id.user_name).text.toString()
         val serverUrl = setupView.findViewById<EditText>(R.id.server_url).text.toString()
         viewModel.setup(userName, serverUrl)

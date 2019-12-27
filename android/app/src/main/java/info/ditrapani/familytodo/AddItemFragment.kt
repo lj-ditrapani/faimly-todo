@@ -36,7 +36,7 @@ class AddItemFragment : Fragment() {
         button.setOnClickListener(::handleAdd)
     }
 
-    fun handleAdd(view: View) {
+    fun handleAdd(@Suppress("UNUSED_PARAMETER") view: View) {
         val description = addView.findViewById<EditText>(R.id.add_item_description).text.toString()
         viewModel.handleAdd(description)
     }
