@@ -48,7 +48,12 @@ class OrderFragment : Fragment() {
         okButton.setOnClickListener(::handleOk)
     }
 
-    fun handleOk(view: View) {
+    override fun onResume() {
+        super.onResume()
+        viewModel.getLatestList()
+    }
+
+    fun handleOk(@Suppress("UNUSED_PARAMETER")view: View) {
         viewModel.doOrdering()
     }
 }

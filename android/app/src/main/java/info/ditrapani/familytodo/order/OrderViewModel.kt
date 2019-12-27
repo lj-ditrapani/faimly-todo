@@ -20,6 +20,7 @@ class OrderViewModel : ViewModel() {
     lateinit private var todoOrder: ITodoOrder
     lateinit private var nav: NavController
     lateinit private var recyclerAdapter: RecyclerAdapter
+    private val list = mutableListOf<IndexedTodoItem>()
 
     fun construct(
         todoOrder: ITodoOrder,
@@ -27,25 +28,46 @@ class OrderViewModel : ViewModel() {
     ) {
         this.todoOrder = todoOrder
         this.nav = nav
-        // needs to be field & mutable list
-        val list = todoOrder.list().mapIndexed { index, item ->
-            IndexedTodoItem(index, item)
-        }
+        getLatestList()
         this.recyclerAdapter = RecyclerAdapter(list, ::itemUp, ::itemDown)
+    }
+
+    fun getLatestList() {
+        list.clear()
+        list.addAll(
+            todoOrder.list().mapIndexed { index, item ->
+                IndexedTodoItem(index, item)
+            }
+        )
+    }
+
+    fun updateToLatestList() {
+        getLatestList()
+        recyclerAdapter.notifyDataSetChanged()
     }
 
     fun getRecyclerAdapter(): RecyclerAdapter = recyclerAdapter
 
     fun doOrdering() {
-        // send todoOrder the new order
+        todoOrder.order(list.map { it.index})
         nav.navigate(
             OrderFragmentDirections.actionOrderFragmentToTodoFragment()
         )
     }
 
-    fun itemUp(index: Int): Unit = TODO()
-    fun itemDown(index: Int): Unit = TODO()
+    fun itemUp(index: Int) {
+        val item = list.removeAt(index)
+        list.add(index - 1, item)
+        recyclerAdapter.notifyItemMoved(index, index - 1)
+    }
+
+    fun itemDown(index: Int) {
+        val item = list.removeAt(index)
+        list.add(index + 1, item)
+        recyclerAdapter.notifyItemMoved(index, index + 1)
+    }
 }
+
 class RecyclerHolder(
     private val item: View,
     private val itemUp: (Int) -> Unit,
